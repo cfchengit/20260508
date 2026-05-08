@@ -141,21 +141,6 @@ Vue.createApp({
   },
 
   methods: {
-    // 加入購物車（已存在則數量+1）
-    addToCart(menuItem) {
-      const existing = this.cart.find(c => c.id === menuItem.id)
-      if (existing) {
-        existing.qty++
-      } else {
-        this.cart.push({ ...menuItem, qty: 1 })
-      }
-    },
-
-    // 送出訂單
-    placeOrder() {
-      alert('訂單已送出！合計 $' + this.totalAmount)
-      this.cart = []   // 清空購物車
-    },
     // 載入菜單
   async loadMenu() {
     try {
@@ -190,14 +175,26 @@ Vue.createApp({
     }
   }
 },
+    // 加入購物車（已存在則數量+1）
+    addToCart(menuItem) {
+      const existing = this.cart.find(c => c.id === menuItem.id)
+      if (existing) {
+        existing.qty++
+      } else {
+        this.cart.push({ ...menuItem, qty: 1 })
+      }
+    },
 
-// 加入生命週期鉤子（頁面載入時自動呼叫）
-mounted() {
+    // 送出訂單
+    placeOrder() {
+      alert('訂單已送出！合計 $' + this.totalAmount)
+      this.cart = []   // 清空購物車
+    }    
+  },
+  // 加入生命週期鉤子（頁面載入時自動呼叫）
+  mounted() {
   this.loadMenu()
-}
-  }
-
-).mount('#app')
+}).mount('#app')
 </script>
 
 </body>
